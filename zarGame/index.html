@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS İLE ZART ATMA OYUNU </title>
+</head>
+
+<body>
+
+
+    <h2>JS İLE ZAR ATMA OYUNU </h2>
+    <button id="roll"> Zar At</button>
+    <p id="p1">Oyuncu 1: 🎲</p>
+    <p id="p2">Oyuncu 2: 🎲</p>
+    <h3 id="winner"> Kazanan ?</h3>
+
+
+
+
+    <script>
+        const rollBtn = document.getElementById('roll');
+        const p1 = document.getElementById('p1');
+        const p2 = document.getElementById('p2');
+        const winner = document.getElementById('winner');
+
+
+        rollBtn.onclick = () => {
+            const d1 = Math.ceil(Math.random() * 6);
+            const d2 = Math.ceil(Math.random() * 6);
+
+            p1.textContent = "Oyuncu 1 : 🎲 " + d1;
+            p2.textContent = "Oyuncu 2 : 🎲 " + d2;
+
+            if (d1 > d2) winner.textContent = "Kazanan Oyuncu 1";
+            else if (d2 > d1) winner.textContent = "Kazanan Oyuncu 2";
+            else winner.textContent = "Beraberlik !";
+
+        }
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

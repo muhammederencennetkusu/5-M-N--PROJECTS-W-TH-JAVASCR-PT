@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVASCRİPT İLE ŞİFRE ÜRETİCİ </title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <H2>Şifre Üretici</H2>
+    <label>Uzunluk <input type="range" id="length" min="4" max="20"><span id="lenVal">12</span></label>
+    <label><input type="checkbox" id="upperCase">Büyük Harf</label>
+    <label><input type="checkbox" id="numbers">Rakam</label>
+    <label><input type="checkbox" id="symbols">Sembol</label>
+
+    <button id="generate">Şifre Üret</button>
+
+    <p id="result"></p>
+
+    <button id="copy">Kopyala</button>
+
+
+
+    <script>
+        const lenInput = document.getElementById('length');
+        const lenValue = document.getElementById('lenVal');
+        const upper = document.getElementById('upperCase');
+        const numbers = document.getElementById('numbers');
+        const symbols = document.getElementById('symbols');
+
+        lenInput.oninput = () => lenValue.textContent = lenInput.value;
+
+        document.getElementById('generate').onclick = () => {
+            const length = +lenInput.value;
+            const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+            const numberChars = "0123456789";
+            const symbolsChars = "!@#$%^&*()_+=-";
+
+            let allCars = lowerChars;
+            if (upper.checked) allCars += upperChars;
+            if (numbers.checked) allCars += numberChars;
+            if (symbols.checked) allCars += symbolsChars;
+
+            let password = "";
+
+            for (let i = 0; i < length; i++) {
+                const rand = Math.floor(Math.random() * allCars.length);
+                password += allCars[rand];
+            }
+
+            document.getElementById('result').textContent = "Şifre : " + password;
+
+
+        }
+
+        document.getElementById('copy').onclick = () => {
+            const text = document.getElementById('result').textContent.replace('Şifre :', '');
+            navigator.clipboard.writeText(text);
+            alert('Şifre Kopyalandı !');
+        }
+
+
+    </script>
+</body>
+
+</html>

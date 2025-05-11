@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS İLE YAZARKEN KONUS UYGULAMASI OLUŞTURALIM </title>
+    <style>
+        textarea {
+            width: 300px;
+            height: 300px;
+        }
+
+        select,
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Konuşan Yazı </h2>
+    <textarea id="text" placeholder="Birşeyler yaz...."></textarea><br>
+    <select id="voices"></select><br>
+    <button id="speak">Konuş</button><br>
+
+
+
+    <script>
+        const text = document.getElementById('text');
+        const voiceSelect = document.getElementById('voices');
+        const speakBtn = document.getElementById('speak');
+
+        let voices = [];
+
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            voiceSelect.innerHTML = voices.map((v, i) => `<option value="${i}" >(${v.lang})</option>`).join('');
+        }
+
+        speechSynthesis.onvoiceschanged = loadVoices;
+
+
+        speakBtn.onclick = () => {
+            const utter = new SpeechSynthesisUtterance(text.value);
+            utter.voice = voices[voiceSelect.value];
+            speechSynthesis.speak(utter);
+        }
+
+
+    </script>
+</body>
+
+</html>

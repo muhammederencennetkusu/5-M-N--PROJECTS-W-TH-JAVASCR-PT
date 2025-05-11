@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS İLE PAROLA TAHMİN OYUNU </title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        #result,
+        span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            font-weight: bold;
+            margin-right: 5px;
+            border-radius: 4px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>PAROLA TAHMİN OYUNU </h2>
+    <p>5 harfli kelimeyi tahmin et : </p>
+    <input type="text" id="guess" maxlength="5">
+    <button id="check">Kontrol Et</button><br>
+    <div id="result"></div>
+    <p id="message"></p>
+
+    <script>
+        const kelimeler = [
+            "MAKAS", "KALAN", "KAZAN", "BURUN", "SABIR", "TUTAM",
+            "KARAR", "SABUN", "KARTL", "SALON", "SAYGI", "TARLA",
+            "BULUT", "KAVUN", "YOLCU", "CEVAP", "KISIR", "YAZAR"
+        ];
+
+        let correct = rastgeleKelime();
+
+        const guessInput = document.getElementById('guess');
+        const checkBtn = document.getElementById('check');
+        const result = document.getElementById('result');
+        const message = document.getElementById('message');
+
+
+        function rastgeleKelime() {
+            return kelimeler[Math.floor(Math.random() * kelimeler.length)];
+        }
+
+        checkBtn.onclick = () => {
+            const guess = guessInput.value.toUpperCase();
+            if (guess.length !== 5) return alert('5 harfli bir kelime giriniz');
+            result.innerHTML = "";
+            message.innerHTML = "";
+
+            let dogru = true;
+
+            for (let i = 0; i < 5; i++) {
+                const span = document.createElement('span');
+                span.textContent = guess[i] || "_";
+
+                if (guess[i] == correct[i]) {
+                    span.style.backgroundColor = "green";
+                } else if (correct.includes(guess[i])) {
+                    span.style.backgroundColor = "orange";
+                    dogru = false;
+                } else {
+
+                    span.style.backgroundColor = "gray";
+                    dogru = false;
+                }
+
+                result.appendChild(span);
+
+            }
+
+
+            if (dogru) {
+                message.textContent = "Doğru bildin yeni kelimeye geçiliyor";
+                setTimeout(() => {
+                    correct = rastgeleKelime();
+                    result.innerHTML = "";
+                    guessInput.value = "";
+                    message.innerHTML = "";
+                }, 2000)
+            } else {
+
+                guessInput.value = "";
+            }
+
+
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

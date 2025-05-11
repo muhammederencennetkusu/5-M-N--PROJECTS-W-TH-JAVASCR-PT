@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS İLE RGB RENK OLUŞTURUCU </title>
+    <style>
+        input {
+            display: block;
+        }
+
+        #box {
+            width: 200px;
+            height: 100px;
+            margin: 10px 0px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>RGB RENK OLUŞTURUCU</h2>
+    <label>Kırmızı : <input type="range" id="r" min="0" max="255"></label>
+    <label>Yeşil : <input type="range" id="g" min="0" max="255"></label>
+    <label>Mavi : <input type="range" id="b" min="0" max="255"></label>
+    <div id="box"></div>
+
+    <p id="rgb">rgb(0,0,0)</p>
+
+
+    <script>
+        const r = document.getElementById('r');
+        const g = document.getElementById('g');
+        const b = document.getElementById('b');
+        const rgbText = document.getElementById('rgb');
+        const box = document.getElementById('box');
+
+
+        function updateColor() {
+            const color = `rgb(${r.value},${g.value},${b.value})`;
+            box.style.backgroundColor = color;
+            rgbText.textContent = color;
+        }
+
+        [r, g, b].forEach(slider => slider.addEventListener('input', updateColor));
+
+
+
+
+    </script>
+
+</body>
+
+</html>
